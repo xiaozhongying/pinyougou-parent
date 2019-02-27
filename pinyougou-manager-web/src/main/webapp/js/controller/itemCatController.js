@@ -1,5 +1,5 @@
  //控制层 
-app.controller('itemCatController' ,function($scope,$controller,itemCatService){	
+app.controller('itemCatController' ,function($scope,$controller,itemCatService,typeTemplateService){	
 	$controller('baseController',{$scope:$scope});//继承
     //读取列表数据绑定到表单中  
 	$scope.findAll=function(){
@@ -106,6 +106,13 @@ app.controller('itemCatController' ,function($scope,$controller,itemCatService){
 		}		
 		$scope.findByParentId(p_entity.id);	//查询此级下级列表
 	}
-	
+	$scope.typeTemplateList={data:[]};//初始化模板列表
+	$scope.findTypeTemplateList=function(){
+		typeTemplateService.selectOptionList().success(
+				function(response){
+					$scope.typeTemplateList={data:response};
+				}
+		);	
+	}
 	
 });	

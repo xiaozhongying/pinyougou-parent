@@ -30,5 +30,6 @@ public interface TbTypeTemplateMapper {
 
     int updateByPrimaryKey(TbTypeTemplate record);
     
+    List<Map> selectOptionList();//下拉列表，存id,跟模板名称
 
 }

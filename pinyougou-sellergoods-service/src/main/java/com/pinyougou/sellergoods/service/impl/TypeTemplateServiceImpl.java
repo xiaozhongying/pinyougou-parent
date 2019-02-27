@@ -108,5 +108,12 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 		return new PageResult(page.getTotal(), page.getResult());
 	}
 
+		@Override
+		public List<Map> selectOptionList()
+		{
+			// TODO Auto-generated method stub
+			return typeTemplateMapper.selectOptionList();
+		}
+
 
 }
