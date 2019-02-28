@@ -29,7 +29,6 @@
                 
                     <div class="box-header with-border">
                         <h3 class="box-title">商品分类管理     
-                       	</h3>
                     </div>
 
                     <div class="box-body">
@@ -52,8 +51,8 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="entity={customAttributeItems:[]}" ><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
+                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="entity={}" ><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i class="fa fa-trash-o"></i> 删除</button>
                                         <button type="button" class="btn btn-default" title="刷新" ><i class="fa fa-check"></i> 刷新</button>
                                        
                                     </div>
@@ -70,24 +69,24 @@
 			                              </th> 
 										  <th class="sorting_asc">分类ID</th>
 									      <th class="sorting">分类名称</th>									   
-									      <th class="sorting">类型模板ID</th>
+									      <th class="sorting">类型模板</th>
 									     						
 					                      <th class="text-center">操作</th>
 			                          </tr>
 			                      </thead>
 			                      <tbody>
 			                          <tr ng-repeat="entity in list" >
-			                              <td><input  type="checkbox" ></td>			                              
+			                              <td><input  type="checkbox" ng-click="updateSelection($event, entity.id)" ></td>			                              
 				                          <td>{{entity.id}}</td>
 									      <td>{{entity.name}}</td>									    
 									      <td>
-									      	{{entity.typeId}} 
+									      	<span ng-repeat="x in typeTemplateList" ng-if="entity.typeId==x.id">{{x.text}}</span>
 									      </td>									      
 		                                  <td class="text-center">
 		                                  <span ng-if="grade!=3">		                                     
 		                                      <button type="button" class="btn bg-olive btn-xs" ng-click="setGrade(grade+1);selectList(entity)" >查询下级</button> 		                                     
 	                                 	  </span>
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="findOne(entity.id)" >修改</button>                                           
 		                                  </td>
 			                          </tr>
 			                      </tbody>
@@ -128,9 +127,12 @@
 		      	<tr>
 		      		<td>类型模板</td>
 		      		<td>	      		
-		      			<input select2 select2-model="entity.typeTemplate"  config="typeTemplateList" multiple placeholder=" 选择品牌（可多选） " class="form-control">
+		      			<select class="form-control" ng-model="entity.typeId">
+		      				<option value="">请选择</option>
+		      				<option ng-repeat="x in typeTemplateList" value="{{x.id}}">{{x.text}}</option>
+		      			</select>
 		      		</td>		      		      		
-		      	</tr>		      	
+		      	</tr>	
 			 </table>				
 			
 		</div>

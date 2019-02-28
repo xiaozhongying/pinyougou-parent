@@ -28,7 +28,6 @@ app.controller('itemCatController' ,function($scope,$controller,itemCatService,t
 			}
 		);				
 	}
-	
 	//保存 
 	$scope.save=function(){				
 		var serviceObject;//服务层对象  				
@@ -50,18 +49,38 @@ app.controller('itemCatController' ,function($scope,$controller,itemCatService,t
 		);				
 	}
 	
-	 
+	$scope.selectIds=[];//选中的ID集合 
+	//更新复选
+	$scope.updateSelection = function($event, id) {		
+		if($event.target.checked){//如果是被选中,则增加到数组
+			$scope.selectIds.push( id);			
+		}else{
+			var idx = $scope.selectIds.indexOf(id);
+            $scope.selectIds.splice(idx, 1);//删除 
+		}
+	}
 	//批量删除 
-	$scope.dele=function(){			
-		//获取选中的复选框			
-		itemCatService.dele( $scope.selectIds ).success(
-			function(response){
-				if(response.success){
-					$scope.reloadList();//刷新列表
-					$scope.selectIds=[];
-				}						
-			}		
-		);				
+	$scope.dele=function(){	
+		//删除前校验
+		itemCatService.check( $scope.selectIds ).success(
+				function(response){
+					if(response.success){
+						//获取选中的复选框			
+						itemCatService.dele( $scope.selectIds ).success(
+							function(response){
+								if(response.success){
+									alert(response.message)
+									$scope.findByParentId($scope.parentId);//重新加载
+									$scope.selectIds=[];
+								}						
+							}		
+						);	
+					}else{
+						alert(response.message);
+					}				
+				}
+		);
+			
 	}
 	
 	$scope.searchEntity={};//定义搜索对象 
@@ -80,6 +99,7 @@ app.controller('itemCatController' ,function($scope,$controller,itemCatService,t
 	//根据上级分类ID查询列表
 	$scope.findByParentId=function(parentId){
 		$scope.parentId=parentId;
+		$scope.selectIds=[];
 		itemCatService.findByParentId(parentId).success(
 			function(response){
 				$scope.list=response;
@@ -106,11 +126,11 @@ app.controller('itemCatController' ,function($scope,$controller,itemCatService,t
 		}		
 		$scope.findByParentId(p_entity.id);	//查询此级下级列表
 	}
-	$scope.typeTemplateList={data:[]};//初始化模板列表
+	$scope.typeTemplateList={};//初始化模板列表
 	$scope.findTypeTemplateList=function(){
 		typeTemplateService.selectOptionList().success(
 				function(response){
-					$scope.typeTemplateList={data:response};
+					$scope.typeTemplateList=response;
 				}
 		);	
 	}

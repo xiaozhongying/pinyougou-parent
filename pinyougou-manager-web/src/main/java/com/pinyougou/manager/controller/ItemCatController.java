@@ -119,5 +119,22 @@ public class ItemCatController {
 	public List<TbItemCat> findByParentId(Long parentId){
 		return itemCatService.findByParentId(parentId);
 	}
-	
+	/**
+	 * 通过上级id获取集合判断是否存在子id
+	 */
+	@RequestMapping("/check")
+	public Result check(Long [] parentIds){
+		try {
+			for(Long parentid : parentIds)
+			{
+				if(itemCatService.queryCount(parentid)>0){
+					return new Result(false, "删除的数据中存在子节点");
+				}
+			}
+			return new Result(true, "校验成功"); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "校验失败");
+		}
+	}
 }

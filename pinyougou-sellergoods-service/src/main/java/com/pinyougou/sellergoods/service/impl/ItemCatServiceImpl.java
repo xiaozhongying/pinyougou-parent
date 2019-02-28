@@ -105,5 +105,14 @@ public class ItemCatServiceImpl implements ItemCatService {
 			criterial.andParentIdEqualTo(parentId);
 			return itemCatMapper.selectByExample(example1);
 		}
+
+		@Override
+		public int queryCount(Long parentId)
+		{
+			TbItemCatExample example1=new TbItemCatExample();
+			Criteria criterial=example1.createCriteria();
+			criterial.andParentIdEqualTo(parentId);
+			return itemCatMapper.countByExample(example1);
+		}
 	
 }

@@ -32,4 +32,8 @@ app.service('itemCatService',function($http){
 	this.findByParentId=function(parentId){
 		return $http.get('../itemCat/findByParentId.do?parentId='+parentId);
 	}
+	//校验
+	this.check=function(ids){
+		return $http.get('../itemCat/check.do?parentIds='+ids);
+	}
 });
