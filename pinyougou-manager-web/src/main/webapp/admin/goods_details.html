@@ -24,16 +24,14 @@
 	<script type="text/javascript" src="../plugins/angularjs/angular.min.js">  </script>
 	<script type="text/javascript" src="../js/base.js">  </script>
 	<script type="text/javascript" src="../js/service/goodsService.js">  </script>
-	<script type="text/javascript" src="../js/service/brandService.js">  </script>
 		<script type="text/javascript" src="../js/service/itemCatService.js"></script>
-		<script type="text/javascript" src="../js/service/typeTemplateService.js"></script>
 	<script type="text/javascript" src="../js/controller/baseController.js">  </script>
 	<script type="text/javascript" src="../js/controller/goodsController.js">  </script>
     
     
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="goodsController" ng-init="findOne();findItemCatList();findBrandList();">
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="goodsController" ng-init="findOne();findTypeTemplate();">
 
             <!-- 正文区域 -->
             <section class="content">
@@ -71,7 +69,7 @@
 		                           	  <div class="col-md-10 data">
 		                    			 <ol class="breadcrumb">	                        	
 				                        		<li>
-						                        	{{itemCatList[entity.goods.category1Id]}}
+						                        {{itemCatList[entity.goods.category1Id]}}
 						                        </li>
 						                        <li>
 						                        {{itemCatList[entity.goods.category2Id]}} 
@@ -90,19 +88,18 @@
 		                           
 		                           <div class="col-md-2 title">品牌</div>
 		                           <div class="col-md-10 data">
-		                              {{brandList[entity.goods.brandId]}}
+		                             {{entity.goods.brandId}}
 		                           </div>
 		
 								   <div class="col-md-2 title">副标题</div>
 		                           <div class="col-md-10 data">
-		                               <input type="text" class="form-control"   placeholder="副标题" value="">
+		                           {{entity.goods.caption}}
 		                           </div>
 		                           
 		                           <div class="col-md-2 title">价格</div>
 		                           <div class="col-md-10 data">
 		                           	   <div class="input-group">
-			                          	   <span class="input-group-addon">¥</span>
-			                               <input type="text" class="form-control"  placeholder="价格" value="">
+			                              ¥ {{entity.goods.price}}
 		                           	   </div>
 		                           </div>
 		                           

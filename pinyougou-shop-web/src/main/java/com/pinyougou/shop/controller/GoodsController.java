@@ -127,4 +127,5 @@ public class GoodsController {
 		goods.setSellerId(sellerId);
 		return goodsService.findPage(goods, page, rows);		
 	}
+	
 }

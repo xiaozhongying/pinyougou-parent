@@ -24,7 +24,6 @@ app.controller('goodsController' ,function($scope,$controller,$location,goodsSer
 	//查询实体 
 	$scope.findOne=function(id){				
 		var id= $location.search()['id'];//获取参数值
-		alert(id)
 		if(id==null){
 			return ;
 		}
